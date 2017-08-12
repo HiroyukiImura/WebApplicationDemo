@@ -1,4 +1,4 @@
-var Book = BackBone.Model.extend({
+var Book = Backbone.Model.extend({
     urlRoot: "http://localhost:8080/books",
     initialize: function () {
         console.log("A new book");
@@ -17,7 +17,8 @@ var Book = BackBone.Model.extend({
     }
 });
 
-var Library = BackBone.Collection.extend({
+var Library = Backbone.Collection.extend({
+    url: "http://localhost:8080/books/",
     model: Book,
     initialize: function () {
         console.log("Created a new library");
@@ -29,4 +30,20 @@ var library = new Library([
     new Book({ name: "Pro Javascript Design Patterns", author: "Dustin Diaz", year: 2012 })
 ]);
 
-console.log("Library contains: " + library.length + " books.");
+var LibraryView = Backbone.View.extend({
+    initialize: function () {
+        console.log("View is created");
+        this.render();
+    },
+    render: function () {
+        this.collection.forEach(function (book) {
+            this.$el.append("<li id=\"" + book.get("name") + "\">Book Name: " + book.get("name") + "</li>");
+        }, this);
+        return this;
+    }
+});
+
+var libraryView = new LibraryView({
+    collection: library,
+    el: "#libraryViewSection"
+});

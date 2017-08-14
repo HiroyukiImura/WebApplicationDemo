@@ -35,11 +35,12 @@ var LibraryView = Backbone.View.extend({
         console.log("View is created");
         this.render();
     },
+    template: _.template($("#library-template").html()),
     render: function () {
-        this.collection.forEach(function (book) {
-            this.$el.append("<li id=\"" + book.get("name") + "\">Book Name: " + book.get("name") + "</li>");
-        }, this);
-        return this;
+        var self = this;
+        var output = self.template({ 'library': self.collection.toJSON() });
+        self.$el.append(output);
+        return self;
     }
 });
 

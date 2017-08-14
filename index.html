@@ -9,6 +9,17 @@
 <body>
     <div id="libraryViewSection"></div>
 
+    <script type="text/template" id="library-template">
+        <ul>
+            <% for (var i = 0; i < library.length; i++) { %>
+                <% var book = library[i]; %>
+                    <li>
+                        <em><%= book.name %></em> by
+                        <%= book.author %>
+                    </li>
+                    <% } %>
+        </ul>
+    </script>
     <script src="js/external/jquery-3.2.1.min.js"></script>
     <script src="js/external/underscore-min.js"></script>
     <script src="js/external/backbone-min.js"></script>

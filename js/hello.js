@@ -48,3 +48,13 @@ var libraryView = new LibraryView({
     collection: library,
     el: "#libraryViewSection"
 });
+
+var MyRouter = Backbone.Router.extend({
+    routes: { "hello/:name": "sayHello" },
+    sayHello: function (name) {
+        console.log("saying hello to " + name);
+    }
+});
+
+var router = new MyRouter();
+Backbone.history.start();
